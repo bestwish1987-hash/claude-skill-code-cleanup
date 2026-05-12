@@ -1,5 +1,51 @@
 # Changelog
 
+## v0.2 — 2026-05-13
+
+加入 **Mode B Repo Audit**（4 個新 dimension），跑 release ship 前最後 sanity check。
+
+### Added — Mode B: Repo Audit
+
+**Dimension 5: 私公版 sync GAP** — 適用 dual-repo skill（私人版 + 開源版）
+- 自動跑 `diff -q` 比對哪些檔案 desync
+- 區分 by-design diff（author signature） vs 真實 sync gap
+
+**Dimension 6: Release 一致性** — git tag / gh release / CHANGELOG / README 對齊
+- 抓「有 tag 但沒 release」「有 release 但沒 tag」
+- 抓 CHANGELOG 缺最新版 entry
+- 抓 README 缺最新版提及
+
+**Dimension 7: Cross-link 完整性**
+- 內部 .md ref 是否 broken
+- Cross-repo URL 是否還活著
+
+**Dimension 8: 版本標記漂移**
+- 多檔案 version mention 不一致
+- 例：README 提 v0.7.2 但 latest tag 是 v0.7.3 → 推 release 沒更 README
+
+### Changed — Mode A 重新分組
+
+原 v0.1 的 4 個 dimension 維持不變，但歸進「Mode A: Codebase Cleanup」，方便跟 Mode B 區隔。
+
+### Real demo — 自己 audit 姐妹 repo 抓到的
+
+跑 social-post v0.7.3 audit：
+- Dimension 5: ✅ 私公版同步 OK（除了 author signature by-design）
+- Dimension 6: ⚠️ CHANGELOG 缺 v0.7.3 entry（剛 release 但 doc 沒更）
+- Dimension 7: ✅ 13 個外部 link 全 live
+- Dimension 8: ⚠️ README + SKILL.md 都缺 v0.7.3 提及
+
+→ cleanup-helper v0.2 立刻抓到自己姐妹 repo 的 doc drift。**self-demo loop**。
+
+### Added — 觸發詞庫擴充
+
+新增 audit 相關觸發詞：
+- 「audit 我的 repo」
+- 「check release 一致性」
+- 「私公版 diff」
+- 「版本對齊」
+- 「release ship 前盤點」
+
 ## v0.1 — 2026-05-13
 
 初版發布。

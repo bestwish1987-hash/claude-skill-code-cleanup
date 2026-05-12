@@ -43,12 +43,21 @@
 
 ---
 
-## 4 個檢查 dimension
+## 兩模式 / 8 dimension
+
+### Mode A — Codebase Cleanup（v0.1 base）
 
 1. **重複內容**（DRY 違反）— 同 keyword / substring 散落幾個檔案
 2. **命名不一致**（同 concept 多種寫法）
 3. **可抽 reusable 模組**（重複 ≥ 3 次 + 邏輯獨立）
 4. **過長檔案 / 函數**（> 800 行 / > 100 行警告）
+
+### Mode B — Repo Audit（v0.2 NEW）
+
+5. **私公版 sync GAP**（適用 dual-repo skill）
+6. **Release 一致性**（git tag / gh release / CHANGELOG / README 對齊）
+7. **Cross-link 完整性**（broken markdown link / cross-repo ref）
+8. **版本標記漂移**（多檔案 version drift）
 
 詳見 [`code-cleanup-helper/SKILL.md`](code-cleanup-helper/SKILL.md)。
 
