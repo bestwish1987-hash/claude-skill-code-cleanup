@@ -1,0 +1,12 @@
+# 個人測試 / cache
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Node / temp
+node_modules/
+*.tmp
