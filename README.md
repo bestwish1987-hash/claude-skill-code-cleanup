@@ -43,7 +43,7 @@
 
 ---
 
-## 兩模式 / 8 dimension
+## 兩模式 / 9 dimension
 
 ### Mode A — Codebase Cleanup（v0.1 base）
 
@@ -58,6 +58,7 @@
 6. **Release 一致性**（git tag / gh release / CHANGELOG / README 對齊）
 7. **Cross-link 完整性**（broken markdown link / cross-repo ref）
 8. **版本標記漂移**（多檔案 version drift）
+9. **開源/交接文件健檢**（主力定位顛倒 / 隱性依賴沒標需求 / onboarding 無 minimum-viable，源自 video-autopilot-kit 開源實戰）
 
 詳見 [`code-cleanup-helper/SKILL.md`](code-cleanup-helper/SKILL.md)。
 

@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.3 — 2026-06-02
+
+加入 **Dimension 9: 開源/交接文件健檢**（Mode B 第 5 個 dimension）。把專案開源/交接給陌生人前，抓「我熟到忘了講」的隱性洞。
+
+### Added — Mode B Dimension 9: 開源/交接文件健檢
+
+- **9a 主力工具定位顛倒** — 主力工具被講成「選用/optional」、次要工具被列「必需」→ 採用者拿錯工具當主力
+- **9b 隱性外部依賴沒標需求** — 核心功能背後的依賴（Computer Use / API key / 特定 app / 系統權限）沒寫進需求 → 採用者跑不起來
+- **9c onboarding 無 minimum-viable** — 問卷要全填才給價值，缺「必答 vs 選填」分層或「丟給 AI 訪談你」低門檻路徑
+- **9d broken folder ref** — 文件引用不存在的資料夾（承 Dimension 7 + 全域 grep 收尾紀律）
+
+判斷句：「拿掉這個依賴，核心功能還能跑嗎？」不能 → 必標需求。「零基礎陌生人能 5 分鐘跑起來、知道先用哪條路嗎？」不能 → onboarding 沒過。
+
+### Real origin — 自己開源 video-autopilot-kit 時踩到的
+
+開源一套 CapCut 影片自動化 kit 後，採用者回報 3 個洞：
+- 需求清單把次要的 ffmpeg 列「必需」、主力 CapCut 列「選用」→ 主次顛倒
+- 全篇沒提核心依賴 **Computer Use**（CapCut 沒 API，自動化全靠它操作 GUI）→ 採用者跑不動
+- 6 區問卷要全填才能開始 → 採用者嫌久
+
+→ 這 3 個洞固化成 Dimension 9 的自動掃描。**self-demo loop** 再現。
+
 ## v0.2 — 2026-05-13
 
 加入 **Mode B Repo Audit**（4 個新 dimension），跑 release ship 前最後 sanity check。
