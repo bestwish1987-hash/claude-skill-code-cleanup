@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.3.1 — 2026-06-10
+
+### Added — Dimension 9e: 個人化設定當預設（源自 M90）
+- 掃「作者個資/品牌/個人路徑/個人 keyword map」被當 **default** 烤進 src 程式碼（非 example）
+- 掃「函數 default 吃作者個人 map」→ 陌生採用者 match 不到 = 輸出對不上
+- 掃「純 CJK keyword 無語言無關 fallback」→ 非中文採用者全 miss
+- 真實起源：開源 video-autopilot-kit 的 b-roll matcher 預設吃作者的中文主題表，
+  採用者回報「剪出來畫面對不上字幕」。判斷句：**預設行為要對「沒有我資料的陌生人」成立**。
+
 ## v0.3 — 2026-06-02
 
 加入 **Dimension 9: 開源/交接文件健檢**（Mode B 第 5 個 dimension）。把專案開源/交接給陌生人前，抓「我熟到忘了講」的隱性洞。

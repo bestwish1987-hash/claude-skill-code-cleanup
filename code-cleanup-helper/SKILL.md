@@ -256,6 +256,21 @@ grep -rqiE "必答|★|required|最小啟動|minimum|quick.?start|5 分鐘" SETU
 grep -rohE '`[a-zA-Z0-9_./-]+/`' README* SETUP* | tr -d '`' | sort -u | while read d; do
   [ -e "$d" ] || echo "❌ 文件引用不存在的路徑：$d"
 done
+
+# 9e. 個資/個人脈絡被當「預設」烤進邏輯（源自 M90 — 採用者最隱蔽的雷）
+#     作者名/品牌/個人路徑/個人主題詞 出現在 src 程式碼，且是 default（非 example）
+AUTHOR_TOKENS="作者名|品牌名|你的英文 handle|你的網域"   # 換成你的：例 Hao0321|自由工坊|hao0321\.com
+grep -rnE "$AUTHOR_TOKENS" src/ --include="*.py" 2>/dev/null | grep -viE "example|sample|範例|your[-_ ]" \
+  && echo "⚠️ 個資/品牌烤進 src 程式碼 — 採用者會 match 不到或被污染"
+# default 參數指向作者個人 keyword/map/dict？（非 example 命名 = 高風險）
+grep -rnE "else [A-Z_]*KEYWORD_MAP|else [A-Z_]*_(MAP|DICT|TOPICS)" src/ --include="*.py" 2>/dev/null \
+  | grep -viE "EXAMPLE|DEFAULT_EMPTY|\{\}" \
+  && echo "⚠️ 函數 default 吃作者個人 map → 陌生採用者全 match 不到 = 輸出對不上"
+# 語言鎖死？（純中文 keyword / 只 handle CJK，無語言無關 fallback）
+grep -rlE "[一-鿿]{2,}\"" src/ --include="*.py" 2>/dev/null | while read f; do
+  grep -qiE "fallback|filename|token.?overlap|語言無關|language.?agnostic" "$f" \
+    || echo "⚠️ $f 有 CJK keyword 但無語言無關 fallback → 非中文採用者全 miss"
+done
 ```
 
 **警告 patterns**：
@@ -264,6 +279,7 @@ done
 - SETUP/問卷**沒有 ★必答 vs ⭕選填 分層**，也沒「丟給 AI 訪談你」低門檻路徑 → 填完才給價值 = 棄坑
 - README 引用 `docs/` 等**不存在的資料夾**（broken link）
 - 中英雙語文件**只改一邊** → 語言版 drift（併入 Dimension 5 sync）
+- ⭐ **個人化設定當 default 烤進邏輯**（作者 keyword map / 個人路徑 / 品牌 / 語言鎖死）→ 採用者 match 不到 → **輸出對不上**（源自 M90：個人化必須 opt-in，預設走零設定通用解 + 語言無關 fallback）
 
 **判斷句（最高層）**：「**拿掉這個依賴，核心功能還能跑嗎？**」不能 → 必標需求。
 「**零基礎陌生人能 5 分鐘跑起來嗎？他知道先用哪條路、要開什麼嗎？**」不能 → onboarding 沒過。
